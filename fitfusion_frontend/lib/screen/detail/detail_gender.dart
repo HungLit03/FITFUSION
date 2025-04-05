@@ -25,8 +25,8 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
   void selectGender(String gender) {
     setState(() {
       selectedGender = gender;
-          print("Giới tính đã chọn: $selectedGender"); // Debug để kiểm tra trong console
-
+      print(
+          "Giới tính đã chọn: $selectedGender"); // Debug để kiểm tra trong console
     });
   }
 
@@ -59,28 +59,33 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                   child: Column(
                     children: [
                       SizedBox(height: screenHeight * 0.03),
-                      const Text("Giới tính của bạn là gì?", style: AppTextStyles.little_title),
+                      const Text("Giới tính của bạn là gì?",
+                          style: AppTextStyles.little_title),
                       SizedBox(height: screenHeight * 0.03),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: genders.map((genderData) {
                           return Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
-                            child: GenderOptionWidget(
-                              gender: genderData['gender']!,
-                              imagePath: genderData['imagePath']!,
-                              isSelected: selectedGender == genderData['gender'],
-                              onTap: () => selectGender(genderData['gender']!),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: screenWidth * 0.02),
+                              child: GenderOptionWidget(
+                                gender: genderData['gender']!,
+                                imagePath: genderData['imagePath']!,
+                                isSelected:
+                                    selectedGender == genderData['gender'],
+                                onTap: () =>
+                                    selectGender(genderData['gender']!),
+                              ),
                             ),
-                          ),
                           );
                         }).toList(),
                       ),
                       SizedBox(height: screenHeight * 0.04),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                        child: Text(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.05),
+                        child: const Text(
                           "Chúng tôi sử dụng giới tính của bạn để thiết kế kế hoạch ăn kiêng tốt nhất cho bạn.",
                           style: AppTextStyles.normal,
                           textAlign: TextAlign.center,
@@ -95,12 +100,14 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => HeightInputScreen(userInfo: widget.userInfo), 
+                                    builder: (context) => HeightInputScreen(
+                                        userInfo: widget.userInfo),
                                   ),
                                 );
                               }
                             : null,
-                        child: const Text("TIẾP TỤC", style: AppTextStyles.textButtonTwo),
+                        child: const Text("TIẾP TỤC",
+                            style: AppTextStyles.textButtonTwo),
                       ),
                     ],
                   ),

@@ -6,6 +6,8 @@ import '../widgets/inputfield.dart';
 import 'detail/detail_gender.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -14,7 +16,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -41,29 +44,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               const AppBarCustom(),
               const SizedBox(height: 20),
-
               Image.asset(
                 'assets/logo.png',
                 width: 200,
               ),
               const SizedBox(height: 10),
-
               InputField(label: "Họ và tên", controller: fullnameController),
               const SizedBox(height: 10),
-
-              InputField(label: "Tên đăng nhập", controller: usernameController),
+              InputField(
+                  label: "Tên đăng nhập", controller: usernameController),
               const SizedBox(height: 10),
-
-              InputField(label: "Mật khẩu", controller: passwordController, isPassword: true),
+              InputField(
+                  label: "Mật khẩu",
+                  controller: passwordController,
+                  isPassword: true),
               const SizedBox(height: 10),
-
-              InputField(label: "Nhập lại mật khẩu", controller: confirmPasswordController, isPassword: true),
+              InputField(
+                  label: "Nhập lại mật khẩu",
+                  controller: confirmPasswordController,
+                  isPassword: true),
               const SizedBox(height: 20),
-
               ElevatedButton(
                 style: ButtonStyles.buttonTwo,
                 onPressed: () {
-                  if (passwordController.text == confirmPasswordController.text) {
+                  if (passwordController.text ==
+                      confirmPasswordController.text) {
                     UserInfoModel userInfo = UserInfoModel(
                       fullname: fullnameController.text,
                     );
@@ -71,7 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => GenderSelectionScreen(userInfo: userInfo),
+                        builder: (context) =>
+                            GenderSelectionScreen(userInfo: userInfo),
                       ),
                     );
                   } else {
@@ -80,9 +86,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     );
                   }
                 },
-                child: const Text("ĐĂNG KÝ", style: AppTextStyles.textButtonTwo),
+                child:
+                    const Text("ĐĂNG KÝ", style: AppTextStyles.textButtonTwo),
               ),
-
               const SizedBox(height: 10),
             ],
           ),

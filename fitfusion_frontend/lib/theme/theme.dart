@@ -10,6 +10,7 @@ class AppColors {
   static const Color buttonBg = Color(0x7FB3261E); // Nền button đỏ mờ
   static const Color buttonText = Color(0xFFFFFFFF); // Chữ trên button
   static const Color text = Color.fromARGB(255, 0, 0, 0); // Chữ trên button
+  static const Color gray = Color(0xFFBDBDBD); // Màu gray cho ô tìm kiếm
 }
 
 class AppTextStyles {
@@ -24,12 +25,12 @@ class AppTextStyles {
     fontStyle: FontStyle.italic, // Chữ nghiêng
     color: AppColors.textSecondary,
   );
-  static const TextStyle little_title = TextStyle( 
+  static const TextStyle little_title = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w900,
     color: AppColors.textPrimary,
   );
-    static const TextStyle little_title_1 = TextStyle( 
+  static const TextStyle little_title_1 = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w900,
     color: AppColors.text,
@@ -61,16 +62,18 @@ class AppTextStyles {
     color: Color.fromARGB(255, 0, 0, 0),
   );
 }
+
 class ButtonStyles {
   static final ButtonStyle buttonOne = ElevatedButton.styleFrom(
     backgroundColor: const Color.fromARGB(255, 255, 255, 255),
     minimumSize: const Size(200, 50),
   );
   static final ButtonStyle buttonTwo = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.primary, 
+    backgroundColor: AppColors.primary,
     minimumSize: const Size(200, 50),
   );
 }
+
 ///background
 const LinearGradient appGradient = LinearGradient(
   begin: Alignment.topCenter,
@@ -81,5 +84,5 @@ const LinearGradient appGradient = LinearGradient(
 const LinearGradient boxGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
-  colors:[ Color(0xFF999999), AppColors.background],
-  );
+  colors: [Color(0xFF999999), AppColors.background],
+);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fitfusion_frontend/screen/intro.dart';
 
 void main() {
-  runApp(FitFusionApp());
+  runApp(const FitFusionApp());
 }
 
 class FitFusionApp extends StatelessWidget {
@@ -10,7 +10,7 @@ class FitFusionApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: IntroApp(), // Đặt màn hình khởi động đúng
     );

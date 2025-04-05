@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                       FeatureButton(
                         title: "HLV Cá nhân",
                         image: "assets/coach.png",
-                        gradientColors: [Color(0xFF54CAF7), Colors.white],
+                        gradientColors: const [Color(0xFF54CAF7), Colors.white],
                         isTextLeft: true,
                         onTap: () {
                           // Navigator.push(
@@ -52,20 +52,22 @@ class HomeScreen extends StatelessWidget {
                       FeatureButton(
                         title: "Tính Calories",
                         image: "assets/calories.png",
-                        gradientColors: [Colors.white, Color(0xFFF7C818)],
+                        gradientColors: const [Colors.white, Color(0xFFF7C818)],
                         isTextLeft: false,
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const CaloriesScreen()),
+                                builder: (context) => CaloriesScreen(
+                                      userInfo: userInfo,
+                                    )),
                           );
                         },
                       ),
                       FeatureButton(
                         title: "Bài tập tại nhà",
                         image: "assets/workout.png",
-                        gradientColors: [Color(0xFF9CB327), Colors.white],
+                        gradientColors: const [Color(0xFF9CB327), Colors.white],
                         isTextLeft: true,
                         onTap: () {
                           // Navigator.push(
@@ -77,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                       FeatureButton(
                         title: "Chế độ dinh dưỡng",
                         image: "assets/nutrition.png",
-                        gradientColors: [Colors.white, Color(0xFFF48221)],
+                        gradientColors: const [Colors.white, Color(0xFFF48221)],
                         isTextLeft: false,
                         onTap: () {
                           // Navigator.push(

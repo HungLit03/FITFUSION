@@ -62,7 +62,7 @@ class _AimDateScreenState extends State<AimDateScreen> {
                           style: AppTextStyles.little_title,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _buildDatePicker(),
                         SizedBox(height: screenHeight * 0.05),
                         ElevatedButton(
@@ -94,7 +94,7 @@ class _AimDateScreenState extends State<AimDateScreen> {
     );
   }
 
-  //pick date, sử dụng package Cupertino để lấy set ngày 
+  //pick date, sử dụng package Cupertino để lấy set ngày
   Widget _buildDatePicker() {
     return Container(
       child: Column(

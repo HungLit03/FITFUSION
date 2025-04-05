@@ -4,16 +4,16 @@ import 'package:fitfusion_frontend/theme/theme.dart';
 
 // Bảng màu theo ảnh body
 final Map<String, Color> imageColorMap = {
-  "assets/body_img/male_underweight.png": Color(0xFF54CAF7),
-  "assets/body_img/male_normal.png": Color(0xFF9CB327),
-  "assets/body_img/male_overweight.png": Color(0xFFF48221),
-  "assets/body_img/male_obese.png": Color(0xFFE64638),
-  "assets/body_img/male_extreme.png": Color(0xFFBD3C8C),
-  "assets/body_img/female_underweight.png": Color(0xFF54CAF7),
-  "assets/body_img/female_normal.png": Color(0xFF9CB327),
-  "assets/body_img/female_overweight.png": Color(0xFFF7C818),
-  "assets/body_img/female_obese.png": Color(0xFFF48221),
-  "assets/body_img/female_extreme.png": Color(0xFFE64638),
+  "assets/body_img/male_underweight.png": const Color(0xFF54CAF7),
+  "assets/body_img/male_normal.png": const Color(0xFF9CB327),
+  "assets/body_img/male_overweight.png": const Color(0xFFF48221),
+  "assets/body_img/male_obese.png": const Color(0xFFE64638),
+  "assets/body_img/male_extreme.png": const Color(0xFFBD3C8C),
+  "assets/body_img/female_underweight.png": const Color(0xFF54CAF7),
+  "assets/body_img/female_normal.png": const Color(0xFF9CB327),
+  "assets/body_img/female_overweight.png": const Color(0xFFF7C818),
+  "assets/body_img/female_obese.png": const Color(0xFFF48221),
+  "assets/body_img/female_extreme.png": const Color(0xFFE64638),
 };
 
 // Widget hiển thị body
@@ -22,7 +22,11 @@ class UserImageWidget extends StatelessWidget {
   final double screenWidth;
   final double screenHeight;
 
-  const UserImageWidget({super.key, required this.userInfo, required this.screenWidth, required this.screenHeight});
+  const UserImageWidget(
+      {super.key,
+      required this.userInfo,
+      required this.screenWidth,
+      required this.screenHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,8 @@ class UserImageWidget extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.asset(imagePath, width: screenWidth * 0.3, height: screenHeight * 0.5),
+        Image.asset(imagePath,
+            width: screenWidth * 0.3, height: screenHeight * 0.5),
         Positioned(
           bottom: 10,
           child: Column(
@@ -41,28 +46,36 @@ class UserImageWidget extends StatelessWidget {
                 width: 150,
                 height: 50,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(10)),
                   color: bmiColor,
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Text(
                   "BMI : ${userInfo.bmi.toStringAsFixed(1)}",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ),
               Container(
                 width: 150,
                 height: 50,
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(10)),
                   color: Colors.white,
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Text(
                   userInfo.bmiStatus,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: bmiColor, fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: bmiColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -90,7 +103,8 @@ class UserImageWidget extends StatelessWidget {
       }
     };
 
-    return imagePaths[userInfo.gender]?[userInfo.bmiStatus] ?? "assets/body_img/default.png";
+    return imagePaths[userInfo.gender]?[userInfo.bmiStatus] ??
+        "assets/body_img/default.png";
   }
 }
 
@@ -118,7 +132,7 @@ class FeatureButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.80, 
+          width: MediaQuery.of(context).size.width * 0.80,
           height: 100,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -132,7 +146,7 @@ class FeatureButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: isTextLeft
-                ? _buildLeftTextLayout()  // chiều xuôi
+                ? _buildLeftTextLayout() // chiều xuôi
                 : _buildRightTextLayout(), // chiều ngược
           ),
         ),
@@ -147,16 +161,14 @@ class FeatureButton extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              title,
-              style: AppTextStyles.little_title
-            ),
+            child: Text(title, style: AppTextStyles.little_title),
           ),
         ),
       ),
       Padding(
         padding: const EdgeInsets.only(right: 25),
-        child: Image.asset(image, height: 100, width: 100), // Giảm kích thước ảnh
+        child:
+            Image.asset(image, height: 100, width: 100), // Giảm kích thước ảnh
       ),
     ];
   }
@@ -165,17 +177,15 @@ class FeatureButton extends StatelessWidget {
     return [
       Padding(
         padding: const EdgeInsets.only(left: 15),
-        child: Image.asset(image, height: 100, width: 100), // Giảm kích thước ảnh
+        child:
+            Image.asset(image, height: 100, width: 100), // Giảm kích thước ảnh
       ),
       Expanded(
         child: Padding(
           padding: const EdgeInsets.only(right: 15),
           child: Align(
             alignment: Alignment.centerRight,
-            child: Text(
-              title,
-              style: AppTextStyles.little_title
-            ),
+            child: Text(title, style: AppTextStyles.little_title),
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:fitfusion_frontend/widgets/tabbar.dart';
 import 'package:flutter/material.dart';
-import 'package:fitfusion_frontend/theme/theme.dart'; 
+import 'package:fitfusion_frontend/theme/theme.dart';
 
 class selectHLV extends StatefulWidget {
   const selectHLV({super.key});
@@ -121,7 +121,8 @@ class _selectHLVState extends State<selectHLV> {
                   DropdownButton<String>(
                     value: tempField,
                     isExpanded: true,
-                    items: ["Tất cả", "Gym", "Yoga", "Calisthenics", "Cardio"].map((String value) {
+                    items: ["Tất cả", "Gym", "Yoga", "Calisthenics", "Cardio"]
+                        .map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -139,7 +140,8 @@ class _selectHLVState extends State<selectHLV> {
                   DropdownButton<String>(
                     value: tempRegion,
                     isExpanded: true,
-                    items: ["Tất cả", "Hà Nội", "Hồ Chí Minh", "Đà Nẵng"].map((String value) {
+                    items: ["Tất cả", "Hà Nội", "Hồ Chí Minh", "Đà Nẵng"]
+                        .map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -175,7 +177,8 @@ class _selectHLVState extends State<selectHLV> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text("Áp dụng", style: TextStyle(color: Colors.white)),
+                      child: const Text("Áp dụng",
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ),
                 ],
@@ -226,7 +229,7 @@ class _selectHLVState extends State<selectHLV> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            AppBarCustom(),
+            const AppBarCustom(),
             // Title + Filter Icon
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -276,7 +279,8 @@ class _selectHLVState extends State<selectHLV> {
                         CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.green[300],
-                          child: const Icon(Icons.person, size: 40, color: Colors.white),
+                          child: const Icon(Icons.person,
+                              size: 40, color: Colors.white),
                         ),
                         const SizedBox(width: 12),
 
@@ -287,10 +291,13 @@ class _selectHLVState extends State<selectHLV> {
                             children: [
                               Text(
                                 coach["name"]!,
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
                               ),
-                              Text("${coach["gender"]}, ${coach["age"]} tuổi", style: const TextStyle(fontSize: 14)),
-                              Text("Lĩnh vực : ${coach["field"]}", style: const TextStyle(fontSize: 14)),
+                              Text("${coach["gender"]}, ${coach["age"]} tuổi",
+                                  style: const TextStyle(fontSize: 14)),
+                              Text("Lĩnh vực : ${coach["field"]}",
+                                  style: const TextStyle(fontSize: 14)),
                               const SizedBox(height: 8),
                             ],
                           ),
@@ -310,12 +317,14 @@ class _selectHLVState extends State<selectHLV> {
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[700],
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: const Text("Show more", style: TextStyle(fontSize: 16, color: Colors.white)),
+                child: const Text("Show more",
+                    style: TextStyle(fontSize: 16, color: Colors.white)),
               ),
             ),
           ],
@@ -324,4 +333,3 @@ class _selectHLVState extends State<selectHLV> {
     );
   }
 }
-

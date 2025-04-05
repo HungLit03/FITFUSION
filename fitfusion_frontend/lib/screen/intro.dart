@@ -9,14 +9,15 @@ class IntroApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(                                                                                                
+      body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: appGradient, // Áp dụng gradient từ theme.dart
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Căn giữa theo chiều dọc
+          mainAxisAlignment:
+              MainAxisAlignment.center, // Căn giữa theo chiều dọc
           children: [
             // Hình ảnh logo
             Image.asset(
@@ -29,7 +30,8 @@ class IntroApp extends StatelessWidget {
               children: [
                 const Text("FITFUSION", style: AppTextStyles.title),
                 const SizedBox(height: 8),
-                const Text("SỐNG CÂN BẰNG, SỐNG TỐT", style: AppTextStyles.subtitle),
+                const Text("SỐNG CÂN BẰNG, SỐNG TỐT",
+                    style: AppTextStyles.subtitle),
                 const SizedBox(height: 40),
 
                 // Nút Đăng Nhập
@@ -37,22 +39,25 @@ class IntroApp extends StatelessWidget {
                   style: ButtonStyles.buttonOne,
                   onPressed: () {
                     Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>LoginScreen()), 
-                );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                    );
                   }, // Xử lý đăng nhập
-                  child: const Text("ĐĂNG NHẬP", style: AppTextStyles.textButtonOne),
+                  child: const Text("ĐĂNG NHẬP",
+                      style: AppTextStyles.textButtonOne),
                 ),
                 const SizedBox(height: 15),
                 ElevatedButton(
                   style: ButtonStyles.buttonTwo,
                   onPressed: () {
-                     Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterScreen()), 
-                );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    );
                   }, // Xử lý đăng ký
-                  child: const Text("ĐĂNG KÝ", style: AppTextStyles.textButtonTwo),
+                  child:
+                      const Text("ĐĂNG KÝ", style: AppTextStyles.textButtonTwo),
                 ),
               ],
             ),
@@ -61,7 +66,8 @@ class IntroApp extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 20),
               child: TextButton(
                 onPressed: () {}, // Xử lý khi bấm quên mật khẩu
-                child: const Text("Forgot your password?", style: AppTextStyles.forgotPassword),
+                child: const Text("Forgot your password?",
+                    style: AppTextStyles.forgotPassword),
               ),
             ),
           ],
@@ -69,4 +75,4 @@ class IntroApp extends StatelessWidget {
       ),
     );
   }
-} 
+}

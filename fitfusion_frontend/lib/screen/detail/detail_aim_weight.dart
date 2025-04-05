@@ -23,57 +23,62 @@ class _AimWeightScreenState extends State<AimWeightScreen> {
   void initState() {
     super.initState();
     _aimWeightController = TextEditingController(
-      text: widget.userInfo.aimWeight?.toString() ?? widget.userInfo.weight.toString(),
+      text: widget.userInfo.aimWeight?.toString() ??
+          widget.userInfo.weight.toString(),
     );
     _aimWeightController.addListener(_updateAimWeight);
   }
 
   void _updateAimWeight() {
-  setState(() {
-    double? aimWeight = double.tryParse(_aimWeightController.text);
-    double currentWeight = widget.userInfo.weight ?? 0.0;
-    double height = widget.userInfo.height ?? 1.7;
-    String goal = widget.userInfo.goal ?? "";
-    errorMessage = null;
+    setState(() {
+      double? aimWeight = double.tryParse(_aimWeightController.text);
+      double currentWeight = widget.userInfo.weight ?? 0.0;
+      double height = widget.userInfo.height ?? 1.7;
+      String goal = widget.userInfo.goal ?? "";
+      errorMessage = null;
 
-    if (aimWeight != null && aimWeight > 0) {
-      if (goal == "Giảm cân" && aimWeight >= currentWeight) {
-        errorMessage = "Cân nặng mục tiêu đang lớn hơn cân nặng hiện tại";
-      } else if (goal == "Tăng cân") {
-        double minGain = 2.0; // Mức tăng tối thiểu
-        if (aimWeight <= currentWeight) {
-          errorMessage = "Cân nặng mục tiêu đang nhỏ hơn cân nặng hiện tại";
-        } else if (aimWeight < currentWeight + minGain) {
-          errorMessage = "Bạn nên đặt cân nặng mục tiêu tăng ít nhất ${minGain}kg";
+      if (aimWeight != null && aimWeight > 0) {
+        if (goal == "Giảm cân" && aimWeight >= currentWeight) {
+          errorMessage = "Cân nặng mục tiêu đang lớn hơn cân nặng hiện tại";
+        } else if (goal == "Tăng cân") {
+          double minGain = 2.0; // Mức tăng tối thiểu
+          if (aimWeight <= currentWeight) {
+            errorMessage = "Cân nặng mục tiêu đang nhỏ hơn cân nặng hiện tại";
+          } else if (aimWeight < currentWeight + minGain) {
+            errorMessage =
+                "Bạn nên đặt cân nặng mục tiêu tăng ít nhất ${minGain}kg";
+          }
+        } else if (goal == "Cải thiện sức khỏe") {
+          double bmiMin = 18.5;
+          double bmiMax = 24.9;
+          double weightMin = bmiMin * (height * height);
+          double weightMax = bmiMax * (height * height);
+          if (aimWeight < weightMin || aimWeight > weightMax) {
+            errorMessage =
+                "Cân nặng mục tiêu không nằm trong vùng BMI bình thường (${weightMin.toStringAsFixed(1)}kg - ${weightMax.toStringAsFixed(1)}kg)";
+          }
         }
-      } else if (goal == "Cải thiện sức khỏe") {
-        double bmiMin = 18.5;
-        double bmiMax = 24.9;
-        double weightMin = bmiMin * (height * height);
-        double weightMax = bmiMax * (height * height);
-        if (aimWeight < weightMin || aimWeight > weightMax) {
-          errorMessage = "Cân nặng mục tiêu không nằm trong vùng BMI bình thường (${weightMin.toStringAsFixed(1)}kg - ${weightMax.toStringAsFixed(1)}kg)";
+
+        // Cập nhật giá trị và tính toán lại BMI mục tiêu
+        isButtonEnabled = errorMessage == null;
+        widget.userInfo.aimWeight = aimWeight;
+        widget.userInfo.calculateBMIAim();
+
+        // Cập nhật phần trăm cân nặng giảm
+        if (widget.userInfo.weight != null &&
+            widget.userInfo.aimWeight != null) {
+          widget.userInfo.weightLossPercentage =
+              ((widget.userInfo.weight! - widget.userInfo.aimWeight!) /
+                      widget.userInfo.weight!) *
+                  100;
+        } else {
+          widget.userInfo.weightLossPercentage = 0.0;
         }
-      }
-
-      // Cập nhật giá trị và tính toán lại BMI mục tiêu
-      isButtonEnabled = errorMessage == null;
-      widget.userInfo.aimWeight = aimWeight;
-      widget.userInfo.calculateBMIAim();
-
-      // Cập nhật phần trăm cân nặng giảm
-      if (widget.userInfo.weight != null && widget.userInfo.aimWeight != null) {
-        widget.userInfo.weightLossPercentage =
-            ((widget.userInfo.weight! - widget.userInfo.aimWeight!) / widget.userInfo.weight!) * 100;
       } else {
-        widget.userInfo.weightLossPercentage = 0.0;
+        isButtonEnabled = false;
       }
-    } else {
-      isButtonEnabled = false;
-    }
-  });
-}
-
+    });
+  }
 
   @override
   void dispose() {
@@ -116,7 +121,12 @@ class _AimWeightScreenState extends State<AimWeightScreen> {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 10),
-                      InputField(label: '', controller: _aimWeightController, width: 100, height: 50, isNumeric: true),
+                      InputField(
+                          label: '',
+                          controller: _aimWeightController,
+                          width: 100,
+                          height: 50,
+                          isNumeric: true),
                       if (errorMessage != null) ...[
                         const SizedBox(height: 10),
                         Text(errorMessage!, style: AppTextStyles.textButtonOne),
@@ -128,7 +138,7 @@ class _AimWeightScreenState extends State<AimWeightScreen> {
                       ),
                       Text(
                         widget.userInfo.bmiAim.toStringAsFixed(1),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 50,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -157,8 +167,11 @@ class _AimWeightScreenState extends State<AimWeightScreen> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(color: Colors.black26, blurRadius: 5, spreadRadius: 2),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 5,
+                                spreadRadius: 2),
                           ],
                         ),
                         padding: EdgeInsets.all(screenWidth * 0.05),
@@ -168,7 +181,8 @@ class _AimWeightScreenState extends State<AimWeightScreen> {
                               widget.userInfo.weightLossPercentage > 0
                                   ? "Giảm ${widget.userInfo.weightLossPercentage.toStringAsFixed(1)}% cân!"
                                   : "Bạn không cần giảm cân!",
-                              style: AppTextStyles.title.copyWith(color: AppColors.buttonBg),
+                              style: AppTextStyles.title
+                                  .copyWith(color: AppColors.buttonBg),
                               textAlign: TextAlign.center,
                             ),
                             if (widget.userInfo.weightLossPercentage > 0)
@@ -188,12 +202,14 @@ class _AimWeightScreenState extends State<AimWeightScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AimDateScreen(userInfo: widget.userInfo), 
+                                    builder: (context) => AimDateScreen(
+                                        userInfo: widget.userInfo),
                                   ),
                                 );
                               }
                             : null,
-                        child: const Text("TIẾP TỤC", style: AppTextStyles.textButtonTwo),
+                        child: const Text("TIẾP TỤC",
+                            style: AppTextStyles.textButtonTwo),
                       ),
                     ],
                   ),

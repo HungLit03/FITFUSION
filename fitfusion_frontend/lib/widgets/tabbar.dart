@@ -7,9 +7,9 @@ class AppBarCustom extends StatelessWidget {
   final VoidCallback? onBackPressed;
 
   const AppBarCustom({
-    Key? key,
+    super.key,
     this.onBackPressed,
-  }) : super(key: key);
+  });
   void _showMenu(BuildContext context) {
     showDialog(
       context: context,
@@ -27,7 +27,7 @@ class AppBarCustom extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 10,
@@ -38,20 +38,28 @@ class AppBarCustom extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _buildMenuItem( context,Icons.person, "Cơ bản", "Thông tin cá nhân",
-                      onTap: () {
+                      _buildMenuItem(
+                        context,
+                        Icons.person,
+                        "Cơ bản",
+                        "Thông tin cá nhân",
+                        onTap: () {
                           Navigator.pop(context); // Đóng menu trước
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => setProfile()), // Chuyển đến màn hình IntroApp
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const setProfile()), // Chuyển đến màn hình IntroApp
                           );
                         },
                       ),
-                      Divider(),
-                      _buildMenuItem( context,Icons.help, "Trợ giúp","Yêu cầu trợ giúp"),
-                      Divider(),
-                      _buildMenuItem( context,Icons.info,"Giới thiệu",  "Về chúng tôi"),
-                      Divider(),
+                      const Divider(),
+                      _buildMenuItem(
+                          context, Icons.help, "Trợ giúp", "Yêu cầu trợ giúp"),
+                      const Divider(),
+                      _buildMenuItem(
+                          context, Icons.info, "Giới thiệu", "Về chúng tôi"),
+                      const Divider(),
                       _buildMenuItem(
                         context,
                         Icons.account_circle,
@@ -61,7 +69,9 @@ class AppBarCustom extends StatelessWidget {
                           Navigator.pop(context); // Đóng menu trước
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => IntroApp()), // Chuyển đến IntroApp
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const IntroApp()), // Chuyển đến IntroApp
                           );
                         },
                       ),
@@ -76,11 +86,15 @@ class AppBarCustom extends StatelessWidget {
     );
   }
 
- Widget _buildMenuItem(BuildContext context, IconData icon, String title, String subtitle, {VoidCallback? onTap}) {
+  Widget _buildMenuItem(
+      BuildContext context, IconData icon, String title, String subtitle,
+      {VoidCallback? onTap}) {
     return ListTile(
       leading: Icon(icon, color: Colors.black),
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: subtitle.isNotEmpty ? Text(subtitle, style: TextStyle(fontSize: 12)) : null,
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: subtitle.isNotEmpty
+          ? Text(subtitle, style: const TextStyle(fontSize: 12))
+          : null,
       onTap: onTap ?? () {}, // Nếu có onTap thì dùng, không thì để trống
     );
   }
@@ -110,6 +124,7 @@ class AppBarCustom extends StatelessWidget {
     );
   }
 }
+
 class AppBarCustomHeader extends StatelessWidget {
   final String fullname;
   final VoidCallback? onBackPressed;
@@ -137,7 +152,7 @@ class AppBarCustomHeader extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         blurRadius: 10,
@@ -148,35 +163,41 @@ class AppBarCustomHeader extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _buildMenuItem(context, 
-                      Icons.person, 
-                      "Cơ bản", 
-                      "Thông tin cá nhân",
-                       onTap: () {
-                          Navigator.pop(context); // Đóng menu trước
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => IntroApp()), // Chuyển đến màn hình IntroApp
-                          );
-                        },
-                      ),
-                      Divider(),
-                      _buildMenuItem(context, Icons.help, "Trợ giúp", "Yêu cầu trợ giúp"),
-                      Divider(),
                       _buildMenuItem(
-                      context,
-                      Icons.info,
-                      "Giới thiệu",  
-                      "Về chúng tôi",
-                      onTap: () {
+                        context,
+                        Icons.person,
+                        "Cơ bản",
+                        "Thông tin cá nhân",
+                        onTap: () {
                           Navigator.pop(context); // Đóng menu trước
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => setProfile()), // Chuyển đến màn hình IntroApp
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const IntroApp()), // Chuyển đến màn hình IntroApp
                           );
                         },
                       ),
-                      Divider(),
+                      const Divider(),
+                      _buildMenuItem(
+                          context, Icons.help, "Trợ giúp", "Yêu cầu trợ giúp"),
+                      const Divider(),
+                      _buildMenuItem(
+                        context,
+                        Icons.info,
+                        "Giới thiệu",
+                        "Về chúng tôi",
+                        onTap: () {
+                          Navigator.pop(context); // Đóng menu trước
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const setProfile()), // Chuyển đến màn hình IntroApp
+                          );
+                        },
+                      ),
+                      const Divider(),
                       _buildMenuItem(
                         context,
                         Icons.account_circle,
@@ -186,7 +207,9 @@ class AppBarCustomHeader extends StatelessWidget {
                           Navigator.pop(context); // Đóng menu trước
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => IntroApp()), // Chuyển đến màn hình IntroApp
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const IntroApp()), // Chuyển đến màn hình IntroApp
                           );
                         },
                       ),
@@ -200,11 +223,16 @@ class AppBarCustomHeader extends StatelessWidget {
       },
     );
   }
-  Widget _buildMenuItem(BuildContext context, IconData icon, String title, String subtitle, {VoidCallback? onTap}) {
+
+  Widget _buildMenuItem(
+      BuildContext context, IconData icon, String title, String subtitle,
+      {VoidCallback? onTap}) {
     return ListTile(
       leading: Icon(icon, color: Colors.black),
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: subtitle.isNotEmpty ? Text(subtitle, style: TextStyle(fontSize: 12)) : null,
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: subtitle.isNotEmpty
+          ? Text(subtitle, style: const TextStyle(fontSize: 12))
+          : null,
       onTap: onTap ?? () {},
     );
   }
@@ -217,7 +245,8 @@ class AppBarCustomHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: const Icon(Icons.chevron_left, color: Colors.white, size: 50),
+              icon:
+                  const Icon(Icons.chevron_left, color: Colors.white, size: 50),
               onPressed: onBackPressed ?? () => Navigator.of(context).pop(),
             ),
             const Text(

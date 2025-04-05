@@ -11,19 +11,19 @@ class Selectexercise extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: appGradient,
         ),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              AppBarCustom(),
+              const AppBarCustom(),
               const SizedBox(height: 30),
-              Text(
+              const Text(
                 'Bài tập tại nhà',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class Selectexercise extends StatelessWidget {
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
-        foregroundColor: Color(0xFFB3261E),
+        foregroundColor: const Color(0xFFB3261E),
         minimumSize: const Size(double.infinity, 100),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
