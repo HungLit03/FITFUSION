@@ -3,10 +3,11 @@ import '../models/user_info_model.dart';
 import '../theme/theme.dart';
 import '../widgets/tabbar.dart';
 import '../widgets/widget_home.dart';
-// import '../screens/coach_screen.dart'; 
+// import '../screens/coach_screen.dart';
 // import '../screens/calories_screen.dart';
 // import '../screens/workout_screen.dart';
 // import '../screens/nutrition_screen.dart';
+import 'calories/calories_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final UserInfoModel userInfo;
@@ -31,9 +32,11 @@ class HomeScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      UserImageWidget(userInfo: userInfo, screenWidth: screenWidth, screenHeight: screenHeight),
+                      UserImageWidget(
+                          userInfo: userInfo,
+                          screenWidth: screenWidth,
+                          screenHeight: screenHeight),
                       SizedBox(height: screenHeight * 0.02),
-
                       FeatureButton(
                         title: "HLV Cá nhân",
                         image: "assets/coach.png",
@@ -52,10 +55,11 @@ class HomeScreen extends StatelessWidget {
                         gradientColors: [Colors.white, Color(0xFFF7C818)],
                         isTextLeft: false,
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => CaloriesScreen()),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CaloriesScreen()),
+                          );
                         },
                       ),
                       FeatureButton(
