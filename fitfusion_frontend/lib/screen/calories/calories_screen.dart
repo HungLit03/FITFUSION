@@ -1,4 +1,6 @@
+import 'package:fitfusion_frontend/models/meal_model.dart';
 import 'package:fitfusion_frontend/models/user_info_model.dart';
+import 'package:fitfusion_frontend/services/meal_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fitfusion_frontend/theme/theme.dart';
 import 'calories_summary.dart';
@@ -33,135 +35,65 @@ class CaloriesScreenState extends State<CaloriesScreen> {
   }
 
   Future<void> _loadFoodData() async {
-    final mockData = [
-      {
-        'name': 'Cơm',
-        'calories': 130,
-        'protein': 3,
-        'carb': 28,
-        'fats': 0.3,
-        'unit': 'bát',
-        'type': 'rice',
-        'baseUnit': 'bát',
-        'baseQuantity': 1,
-        'baseCalories': 130,
-      },
-      {
-        'name': 'Chuối',
-        'calories': 89,
-        'protein': 1.1,
-        'carb': 23,
-        'fats': 0.3,
-        'unit': 'trái',
-        'type': 'fruit',
-        'baseUnit': 'trái',
-        'baseQuantity': 1,
-        'baseCalories': 89,
-      },
-      {
-        'name': 'Thịt gà luộc',
-        'calories': 165,
-        'protein': 31,
-        'carb': 0,
-        'fats': 3.6,
-        'unit': '100g',
-        'type': 'meat',
-        'baseUnit': '100g',
-        'baseQuantity': 1,
-        'baseCalories': 165,
-      },
-      {
-        'name': 'Trứng gà',
-        'calories': 155,
-        'protein': 13,
-        'carb': 1.1,
-        'fats': 11,
-        'unit': 'quả',
-        'type': 'egg',
-        'baseUnit': 'quả',
-        'baseQuantity': 1,
-        'baseCalories': 155,
-      },
-      {
-        'name': 'Bánh mì sandwich',
-        'calories': 265,
-        'protein': 9,
-        'carb': 49,
-        'fats': 3.2,
-        'unit': 'ổ',
-        'type': 'bread',
-        'baseUnit': 'ổ',
-        'baseQuantity': 1,
-        'baseCalories': 265,
-      },
-      {
-        'name': 'Sữa tươi không đường',
-        'calories': 62,
-        'protein': 3.2,
-        'carb': 4.8,
-        'fats': 3.3,
-        'unit': '100ml',
-        'type': 'dairy',
-        'baseUnit': '100ml',
-        'baseQuantity': 1,
-        'baseCalories': 62,
-      },
-      {
-        'name': 'Cá hồi áp chảo',
-        'calories': 206,
-        'protein': 22,
-        'carb': 0,
-        'fats': 13,
-        'unit': '100g',
-        'type': 'fish',
-        'baseUnit': '100g',
-        'baseQuantity': 1,
-        'baseCalories': 206,
-      },
-      {
-        'name': 'Rau xà lách',
-        'calories': 15,
-        'protein': 1.4,
-        'carb': 2.9,
-        'fats': 0.2,
-        'unit': '100g',
-        'type': 'vegetable',
-        'baseUnit': '100g',
-        'baseQuantity': 1,
-        'baseCalories': 15,
-      },
-      {
-        'name': 'Táo',
-        'calories': 52,
-        'protein': 0.3,
-        'carb': 14,
-        'fats': 0.2,
-        'unit': 'trái',
-        'type': 'fruit',
-        'baseUnit': 'trái',
-        'baseQuantity': 1,
-        'baseCalories': 52,
-      },
-      {
-        'name': 'Phở bò',
-        'calories': 450,
-        'protein': 24,
-        'carb': 50,
-        'fats': 15,
-        'unit': 'tô',
-        'type': 'noodle',
-        'baseUnit': 'tô',
-        'baseQuantity': 1,
-        'baseCalories': 450,
-      },
+    try {
+      final dailyPlan = await MealService.loadDailyMealPlan();
 
-      // ... (thêm các món khác)
-    ];
+      setState(() {
+        _foodList = [
+          _convertMealToMap(dailyPlan.breakfast),
+          _convertMealToMap(dailyPlan.lunch),
+          _convertMealToMap(dailyPlan.dinner),
+        ];
+        _filteredFoodList = _foodList;
+      });
+    } catch (e) {
+      print('Error loading meals: $e');
+      // Fallback data
+      setState(() {
+        _foodList = [
+          {
+            'name': 'Cơm',
+            'calories': 130,
+            'protein': 3,
+            'carb': 28,
+            'fats': 0.3,
+            'unit': 'bát',
+            'type': 'rice',
+            'baseUnit': 'bát',
+            'baseQuantity': 1,
+            'baseCalories': 130,
+          },
+          {
+            'name': 'Chuối',
+            'calories': 89,
+            'protein': 1.1,
+            'carb': 23,
+            'fats': 0.3,
+            'unit': 'trái',
+            'type': 'fruit',
+            'baseUnit': 'trái',
+            'baseQuantity': 1,
+            'baseCalories': 89,
+          },
+        ];
+        _filteredFoodList = _foodList;
+      });
+    }
+  }
 
-    setState(() {
-      _foodList = mockData;
-      _filteredFoodList = mockData;
-    });
+  Map<String, dynamic> _convertMealToMap(Meal meal) {
+    return {
+      'name': meal.dishName,
+      'calories': meal.calories,
+      'protein': meal.macronutrients['protein'],
+      'carb': meal.macronutrients['carbs'],
+      'fats': meal.macronutrients['fats'],
+      'unit': 'phần',
+      'type': 'custom',
+      'baseUnit': 'phần', // Thêm các trường cần thiết
+      'baseQuantity': 1,
+      'baseCalories': meal.calories,
+    };
   }
 
   @override
@@ -180,13 +112,12 @@ class CaloriesScreenState extends State<CaloriesScreen> {
           ),
         ),
         backgroundColor: AppColors.primary,
-        centerTitle: true, // Đảm bảo tiêu đề ở giữa
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Ô tìm kiếm
             TextField(
               controller: _searchController,
               decoration: InputDecoration(
@@ -202,20 +133,15 @@ class CaloriesScreenState extends State<CaloriesScreen> {
                 ),
               ),
               inputFormatters: [
-                FilteringTextInputFormatter.deny(
-                    RegExp(r'[0-9]')), // Không cho nhập số
+                FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
               ],
               onChanged: (value) => _searchFood(),
             ),
             const SizedBox(height: 20),
-
-            // Thông báo không tìm thấy
             if (_showNotFound)
               const Text('Không tìm thấy món ăn phù hợp',
                   style: TextStyle(color: Colors.red)),
             const SizedBox(height: 10),
-
-            // Danh sách món ăn
             Expanded(
               child: ListView.builder(
                 itemCount: _filteredFoodList.length,
@@ -238,14 +164,10 @@ class CaloriesScreenState extends State<CaloriesScreen> {
                 },
               ),
             ),
-
-            // Panel thêm món
             if (_showAddPanel && _selectedFood != null) ...[
               _buildAddFoodPanel(),
               const SizedBox(height: 10),
             ],
-
-            // Nút tiếp tục
             ElevatedButton(
               style: ButtonStyles.buttonTwo,
               onPressed: _selectedFoods.isNotEmpty ? _goToSummary : null,
@@ -259,8 +181,6 @@ class CaloriesScreenState extends State<CaloriesScreen> {
 
   Widget _buildAddFoodPanel() {
     final food = _selectedFood!;
-    // final isRice = food['type'] == 'rice';
-    // final isFruit = food['type'] == 'fruit';
 
     return Card(
       elevation: 5,
@@ -271,8 +191,6 @@ class CaloriesScreenState extends State<CaloriesScreen> {
           children: [
             Text(food['name'], style: AppTextStyles.little_title_1),
             const SizedBox(height: 10),
-
-            // Nhập số lượng theo đơn vị phù hợp
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -286,8 +204,6 @@ class CaloriesScreenState extends State<CaloriesScreen> {
               },
             ),
             const SizedBox(height: 10),
-
-            // Thông tin dinh dưỡng
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -298,8 +214,6 @@ class CaloriesScreenState extends State<CaloriesScreen> {
               ],
             ),
             const SizedBox(height: 10),
-
-            // Nút OK
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
